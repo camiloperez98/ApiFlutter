@@ -2,9 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_apis_proyect2/screen_views/cliente_input_form.dart';
+import 'package:flutter_application_apis_proyect2/screen_views/clientes.dart';
 import 'package:http/http.dart' as http;
 
-//https://frontendhbs.onrender.com/
 Future<Client> createCliente(String nombre, String cedula, String email, String telefono, String estado) async {
   final response = await http.post(
     Uri.parse('https://proyectonodejsbackend.onrender.com/api/cliente'),
@@ -13,50 +14,52 @@ Future<Client> createCliente(String nombre, String cedula, String email, String 
     },
     body: jsonEncode(<String, String>{
       "nombre": nombre,
-        "cedula": cedula,
-        "email": email,
-        "telefono": telefono,
-        "estado": estado,
+      "cedula": cedula,
+      "email": email,
+      "telefono": telefono,
+      "estado": estado,
     }),
   );
 
   if (response.statusCode == 201) {
-    // If the server did return a 201 CREATED response,
-    // then parse the JSON.
+
     return Client.fromJson(jsonDecode(response.body));
   } else {
-    // If the server did not return a 201 CREATED response,
-    // then throw an exception.
     throw Exception(response.body);
   }
 }
 
 class Client {
   final String id;
-  final  String nombre;
-  final  int cedula;
-  final  String email;
-  final  int telefono;
-  final  bool estado;
+  final String nombre;
+  final int cedula;
+  final String email;
+  final int telefono;
+  final bool estado;
 
-  const Client({required this.id, required this.nombre, required this.cedula, required this.email, required this.telefono, required this.estado});
+  const Client(
+      {required this.id,
+      required this.nombre,
+      required this.cedula,
+      required this.email,
+      required this.telefono,
+      required this.estado});
 
   factory Client.fromJson(Map<String, dynamic> json) {
     return Client(
       id: json["_id"],
-        nombre: json["nombre"],
-        cedula: json["cedula"],
-        email: json["email"],
-        telefono: json["telefono"],
-        estado: json["estado"],
+      nombre: json["nombre"],
+      cedula: json["cedula"],
+      email: json["email"],
+      telefono: json["telefono"],
+      estado: json["estado"],
     );
   }
 }
 
-
-void main() {
-  runApp(const MyApp());
-}
+// void main() {
+//   runApp(const MyApp());
+// }
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -66,7 +69,6 @@ class MyApp extends StatefulWidget {
     return _MyAppState();
   }
 }
-
 
 class _MyAppState extends State<MyApp> {
   final TextEditingController _nombre = TextEditingController();
@@ -78,77 +80,105 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Crear Cliente',
-      theme: ThemeData(
-        primarySwatch: Colors.cyan,
+    return Scaffold(
+      // appBar: AppBar(
+      //   title: const Text('Login', style: TextStyle(fontSize: 25),),
+      // ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 200),
+          child: Column(
+            children: [
+              const Text('CREAR CLIENTE', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 10),
+              ClienteInputForm(
+                  controller: _nombre,
+                  hintText: 'Ingrese el nombre',
+                  labelText: 'Nombre del cliente',
+                  helperText: '',
+                  counterText: '',
+                  prefixIcon: const Icon(Icons.arrow_right),
+                  icon: const Icon(Icons.account_circle)),
+              const SizedBox(height: 10),
+
+              ClienteInputForm(
+                  controller: _cedula,
+                  hintText: 'Ingrese la cedula',
+                  labelText: 'Cedula del cliente',
+                  helperText: '',
+                  counterText: '',
+                  prefixIcon: const Icon(Icons.arrow_right),
+                  icon: const Icon(Icons.badge_rounded  )),
+              const SizedBox(height: 10),
+
+              ClienteInputForm(
+                  controller: _email,
+                  hintText: 'Ingrese el email',
+                  labelText: 'Email del cliente',
+                  helperText: '',
+                  counterText: '',
+                  prefixIcon: const Icon(Icons.arrow_right),
+                  icon: const Icon(Icons.email_rounded)),
+              const SizedBox(height: 10),
+
+              ClienteInputForm(
+                  controller: _telefono,
+                  hintText: 'Ingrese el telefono',
+                  labelText: 'Telefono del cliente',
+                  helperText: '',
+                  counterText: '',
+                  prefixIcon: const Icon(Icons.arrow_right),
+                  icon: const Icon(Icons.phone_callback_rounded)),
+              const SizedBox(height: 10),
+
+              ClienteInputForm(
+                  controller: _estado,
+                  hintText: 'Ingrese el estado',
+                  labelText: 'Estado del cliente',
+                  helperText: '',
+                  counterText: '',
+                  prefixIcon: const Icon(Icons.arrow_right),
+                  icon: const Icon(Icons.toggle_on_outlined)),
+              const SizedBox(height: 10),
+             Row(
+              children: [
+                 ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(
+          context,
+          MaterialPageRoute(builder: (context) =>const HomeCliente()),
+          );
+                  setState(() {
+                    _futureClient = createCliente(
+                    _nombre.text, 
+                    _cedula.text,
+                    _email.text, 
+                    _telefono.text, 
+                    _estado.text);
+                  });
+                },
+                child: const Text('Crear cliente'),
+              ),
+              const SizedBox(width: 10),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomeCliente()),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red.shade200,
+                          ),
+                    child: const Text('Cancelar'),
+                  ),
+              ],
+             )
+            ],
+          ),
+        ),
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Crear'),
-        ),
-        body: Container(
-          alignment: Alignment.center,
-          padding: const EdgeInsets.all(8),
-          child: (_futureClient == null) ? buildColumn() : buildFutureBuilder(),
-        ),
-      ),
-    );
-  }
-
-  Column buildColumn() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        TextField(
-          controller: _nombre,
-          decoration: const InputDecoration(hintText: 'Digite Nombre'),
-        ),
-        const SizedBox(height: 20,),
-        TextField(
-          controller: _cedula,
-          decoration: const InputDecoration(hintText: 'Digite cedula'),
-        ),
-        const SizedBox(height: 20,),
-         TextField(
-          controller: _email,
-          decoration: const InputDecoration(hintText: 'Digite Email'),
-        ),
-        const SizedBox(height: 20,),
-        TextField(
-          controller: _telefono,
-          decoration: const InputDecoration(hintText: 'Digite Teléfono'),
-        ),
-        const SizedBox(height: 20,),
-          TextField(
-          controller: _estado,
-          decoration: const InputDecoration(hintText: 'Digite Estado'),
-        ),
-        const SizedBox(height: 20,),
-        ElevatedButton(
-          onPressed: () {
-            setState(() {
-              _futureClient = createCliente(_nombre.text, _cedula.text, _email.text, _telefono.text, _estado.text);
-            });
-          },
-          child: const Text('Crear cliente'),
-        ),
-      ],
-    );
-  }
-
-  FutureBuilder<Client> buildFutureBuilder() {
-    return FutureBuilder<Client>(
-      future: _futureClient,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return Text(snapshot.data!.nombre);
-        } else if (snapshot.hasError) {
-          return Text('${snapshot.error}');
-        }
-
-        return const CircularProgressIndicator();
-      },
     );
   }
 }

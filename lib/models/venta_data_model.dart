@@ -41,10 +41,10 @@ class Venta {
     int numeroVenta;
     String nombreCliente;
     int subtotal;
-    double iva;
+    int iva;
     bool estado;
-    DateTime fecha;
-    double total;
+    String fecha;
+    int total;
 
     factory Venta.fromJson(Map<String, dynamic> json) => Venta(
         id: json["_id"],
@@ -54,7 +54,7 @@ class Venta {
         iva: json["iva"],
         estado: json["estado"],
         fecha: json ["fecha"],
-        total: json["total"]
+        total: json["totalVenta"]
     );
 
     Map<String, dynamic> toJson() => {
@@ -65,6 +65,6 @@ class Venta {
         "iva": iva,
         "estado": estado,
         "fecha": fecha,
-        "total": total
+        "totalVenta": total
     };
 }
