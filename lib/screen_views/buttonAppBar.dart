@@ -1,14 +1,15 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_application_apis_proyect2/screen_views/clientes.dart';
-import 'package:flutter_application_apis_proyect2/screen_views/home.dart';
-import 'package:flutter_application_apis_proyect2/screen_views/login.dart';
-import 'package:flutter_application_apis_proyect2/screen_views/ventas.dart';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_application_apis_proyect2/screen_views/alertas.dart';
+import 'package:flutter_application_apis_proyect2/screen_views/clientes.dart';
+import 'package:flutter_application_apis_proyect2/screen_views/photo.dart';
+import 'package:flutter_application_apis_proyect2/screen_views/ventas.dart';
 import '../theme/app_theme.dart';
 
-// void main() {
-//   runApp(const MainApp());
-// }
+
+void main() {
+  runApp(const MainApp());
+}
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
@@ -34,18 +35,16 @@ class _ButtonAppBarState extends State<ButtonAppBar> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    const Home(),
+    //const Home(),
     const HomeCliente(),
     const HomeVenta(),
-    //const Login()
+    const HomeAlerta(),
+    const TakePhoto()
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('VALISOFT'),
-      // ),
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomAppBar(
         color: Colors.teal.shade200,
@@ -71,14 +70,16 @@ class _ButtonAppBarState extends State<ButtonAppBar> {
 
   IconData _getIcon(int index){
     switch(index){
-      case 0: 
-      return Icons.home;
-      case 1:
+      // case 0: 
+      // return Icons.home;
+      case 0:
       return Icons.account_box_rounded;
-      case 2:
+      case 1:
       return Icons.shopping_cart;
-      // case 3:
-      // return Icons.exit_to_app;
+      case 2:
+      return Icons.access_time_filled_outlined;
+      case 3:
+      return Icons.camera_alt;
       default:
       return Icons.home;
     }

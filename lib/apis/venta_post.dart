@@ -89,15 +89,16 @@ class _PostVentaState extends State<PostVenta> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('Login', style: TextStyle(fontSize: 25),),
-      // ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 200),
-          child: Column(
-            children: [
-              const Text('CREAR VENTA', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+          padding: EdgeInsets.symmetric(
+          vertical: MediaQuery.of(context).size.height * 0.1,
+            horizontal: MediaQuery.of(context).size.height * 0.1
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+             const Text('CREAR VENTA', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
               const SizedBox(height: 10),
               ClienteInputForm(
                   controller: _numeroVenta,
@@ -106,7 +107,8 @@ class _PostVentaState extends State<PostVenta> {
                   helperText: '',
                   counterText: '',
                   prefixIcon: const Icon(Icons.arrow_right),
-                  icon: const Icon(Icons.account_circle)),
+                  icon: const Icon(Icons.money),
+                  obscureText: false,),
               const SizedBox(height: 10),
 
               ClienteInputForm(
@@ -116,7 +118,8 @@ class _PostVentaState extends State<PostVenta> {
                   helperText: '',
                   counterText: '',
                   prefixIcon: const Icon(Icons.arrow_right),
-                  icon: const Icon(Icons.badge_rounded  )),
+                  icon: const Icon(Icons.account_circle_sharp),
+                  obscureText: false,),
               const SizedBox(height: 10),
 
               ClienteInputForm(
@@ -126,7 +129,8 @@ class _PostVentaState extends State<PostVenta> {
                   helperText: '',
                   counterText: '',
                   prefixIcon: const Icon(Icons.arrow_right),
-                  icon: const Icon(Icons.email_rounded)),
+                  icon: const Icon(Icons.monetization_on_outlined),
+                  obscureText: false,),
               const SizedBox(height: 10),
 
               ClienteInputForm(
@@ -136,16 +140,18 @@ class _PostVentaState extends State<PostVenta> {
                   helperText: '',
                   counterText: '',
                   prefixIcon: const Icon(Icons.arrow_right),
-                  icon: const Icon(Icons.phone_callback_rounded)),
+                  icon: const Icon(Icons.percent),
+                  obscureText: false,),
               const SizedBox(height: 10),
               ClienteInputForm(
                   controller: _estado,
                   hintText: 'True(activo) - False(inactivo)',
-                  labelText: 'Estadotrue de la venta',
+                  labelText: 'Estado de la venta',
                   helperText: '',
                   counterText: '',
                   prefixIcon: const Icon(Icons.arrow_right),
-                  icon: const Icon(Icons.toggle_on_outlined)),
+                  icon: const Icon(Icons.toggle_on_outlined),
+                  obscureText: false,),
               const SizedBox(height: 10),
               ClienteInputForm(
                   controller: _fecha,
@@ -154,7 +160,8 @@ class _PostVentaState extends State<PostVenta> {
                   helperText: '',
                   counterText: '',
                   prefixIcon: const Icon(Icons.arrow_right),
-                  icon: const Icon(Icons.toggle_on_outlined)),
+                  icon: const Icon(Icons.date_range),
+                  obscureText: false,),
               const SizedBox(height: 10),
               ClienteInputForm(
                   controller: _total,
@@ -163,13 +170,14 @@ class _PostVentaState extends State<PostVenta> {
                   helperText: '',
                   counterText: '',
                   prefixIcon: const Icon(Icons.arrow_right),
-                  icon: const Icon(Icons.toggle_on_outlined)),
+                  icon: const Icon(Icons.monetization_on),
+                  obscureText: false,),
               const SizedBox(height: 10),
               Row(
                 children: [
                       ElevatedButton(
                 onPressed: () {
-                  Navigator.pop(
+                  Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) =>const HomeVenta()),
           );
@@ -190,21 +198,21 @@ class _PostVentaState extends State<PostVenta> {
               const SizedBox(width: 10),
                ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                             builder: (context) => const HomeVenta()),
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.red.shade200,
+                            backgroundColor: Colors.grey.shade700,
                           ),
                     child: const Text('Cancelar'),
                   ),
                 ],
               )
-            ],
-          ),
+          ],
+        ),
         ),
       ),
     );

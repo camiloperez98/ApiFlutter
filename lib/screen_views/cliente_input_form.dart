@@ -9,6 +9,7 @@ class ClienteInputForm extends StatelessWidget {
   final Icon? prefixIcon;
   final Icon? icon;
   final bool? enabled;
+  final bool? obscureText;
   final TextEditingController? controller;
   
   const ClienteInputForm({
@@ -21,7 +22,8 @@ class ClienteInputForm extends StatelessWidget {
     this.prefixIcon, 
     this.icon, 
     this.enabled, 
-    this.controller
+    this.controller, 
+    this.obscureText
     });
 
   @override

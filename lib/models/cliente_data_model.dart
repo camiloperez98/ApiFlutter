@@ -20,7 +20,6 @@ class DataModelCliente {
 
     Map<String, dynamic> toJson() => {
         "clientes": List<dynamic>.from(clientes.map((x) => x.toJson())),
-      
     };
 }
 
